@@ -1,0 +1,3 @@
+[submodule "HashBot2/libraries/base-library"]
+	path = HashBot2/libraries/base-library
+	url = git@github.com:TouchInstinct/base-library.git
