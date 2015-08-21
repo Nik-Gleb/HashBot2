@@ -16,6 +16,8 @@ public class Tweet extends ObjectFromJson {
     private String mSource;
     @Key("user")
     private User mUser;
+    @Key("id_str")
+    private String mId;
 
     /** @return text. */
     public final String getTweet() {return mText;}
@@ -25,5 +27,7 @@ public class Tweet extends ObjectFromJson {
     public final String getSource(){return mSource;}
     /** @return user info. */
     public final User getUser() {return mUser;}
+    /** @return id. */
+    public final String getId() {return mId;}
 
 }

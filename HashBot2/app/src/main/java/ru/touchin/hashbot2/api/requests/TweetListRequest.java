@@ -23,14 +23,20 @@ public class TweetListRequest extends GetJsonRequest {
     private final Random random = new Random(System.nanoTime());
 
     private final String mTag;
+    private final int mLimit;
+    private final String mMaxId;
 
-    public TweetListRequest(int offset, int limit, String tag, Class responseResultType) {
+
+    public TweetListRequest(int offset, int limit, String tag, String max_id, Class responseResultType) {
         super(responseResultType);
         mTag = tag;
+        mLimit = limit;
+        mMaxId = max_id;
     }
 
-    public TweetListRequest(int offset, int limit, String tag) {
-        this(offset, limit, tag, TwitterSearchResults.class);
+    public TweetListRequest(int offset, int limit, String tag, String max_id) {
+        this(offset, limit, tag, max_id, TwitterSearchResults.class);
+        Log.d("LIMIT", String.valueOf(max_id));
     }
 
     @Override
@@ -45,7 +51,7 @@ public class TweetListRequest extends GetJsonRequest {
         String res = null;
 
         try {
-            res = consumer.sign("https://api.twitter.com/1.1/search/tweets.json?q=%23" + mTag);
+            res = consumer.sign("https://api.twitter.com/1.1/search/tweets.json?q=%23" + mTag + (mMaxId != null ? "&max_id=" + mMaxId : "") + "&result_type=recent&count=" + String.valueOf(mLimit));
         } catch (OAuthMessageSignerException e) {
             e.printStackTrace();
         } catch (OAuthExpectationFailedException e) {
@@ -54,7 +60,6 @@ public class TweetListRequest extends GetJsonRequest {
             e.printStackTrace();
         }
 
-        Log.d("URL", res);
         return res;
     }
 

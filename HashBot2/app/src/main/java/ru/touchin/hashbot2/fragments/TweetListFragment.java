@@ -23,7 +23,9 @@ import ru.touchin.hashbot2.fragments.base.BaseLoadingFragment;
 public class TweetListFragment extends BaseLoadingFragment {
 
     private RequestPagingProvider<Tweet> provider;
-    private TweetAdapter adapter;
+    private TweetAdapter adapter = null;
+
+    TweetPagingTaskCreator taskCreator = null;
 
     /** The Tweets Fragment ARG TAG. */
     private static final String ARG_TAG = "hash_tag";
@@ -31,7 +33,10 @@ public class TweetListFragment extends BaseLoadingFragment {
     @Override
     protected void onCreateRenewable() {
         super.onCreateRenewable();
-        provider = new RequestPagingProvider<>(this, new TweetPagingTaskCreator(this, getHashTag().toString()));
+
+        taskCreator = new TweetPagingTaskCreator(this, getHashTag().toString());
+
+        provider = new RequestPagingProvider<>(this, taskCreator);
     }
 
     @Override
@@ -44,6 +49,7 @@ public class TweetListFragment extends BaseLoadingFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adapter = new TweetAdapter();
+        taskCreator.setAdapter(adapter);
         adapter.setProvider(provider);
         this.<ListView>findViewById(R.id.list).setAdapter(adapter);
         this.<ListView>findViewById(R.id.list).setOnItemClickListener(new AdapterView.OnItemClickListener() {

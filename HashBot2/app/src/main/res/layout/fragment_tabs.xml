@@ -4,8 +4,6 @@
     android:id="@+id/fragments_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     android:orientation="vertical"
     tools:context="ru.touchin.hashbot2.activities.MainActivity"
     tools:ignore="RtlHardcoded">
