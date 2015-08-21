@@ -1,10 +1,13 @@
 package ru.touchin.hashbot2.adapters;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.zuzuk.providers.RequestPagingProvider;
 import org.zuzuk.ui.adapters.ProviderAdapter;
@@ -29,7 +32,10 @@ public class TweetAdapter extends ProviderAdapter<Tweet, RequestPagingProvider<T
     @Override
     protected void bindView(View view, Tweet tweet, int position) {
         if(getItemViewType(position) == ITEM) {
-            ((TextView) view.findViewById(R.id.text)).setText(tweet.getTweet());
+            ((TextView) view.findViewById(R.id.text_view_user)).setText(tweet.getUser().getName());
+            ((TextView) view.findViewById(R.id.text_view_tweet)).setText(tweet.getTweet());
+            ((SimpleDraweeView) view.findViewById(R.id.image_view))
+                    .setImageURI(Uri.parse(tweet.getUser().getProfileImage()));
         }
     }
 

@@ -18,8 +18,12 @@ import ru.touchin.hashbot2.api.models.TwitterSearchResults;
 import ru.touchin.hashbot2.api.requests.TweetListRequest;
 
 public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<Tweet> {
-    public TweetPagingTaskCreator(RequestFailListener requestFailListener) {
+
+    private final String mTag;
+
+    public TweetPagingTaskCreator(RequestFailListener requestFailListener, String tag) {
         super(requestFailListener);
+        mTag = tag;
     }
 
     @Override
@@ -27,7 +31,7 @@ public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<T
         return new RemoteAggregationPagingTask<Tweet>(getRequestFailListener(), offset, limit) {
             @Override
             public void load(RequestAndTaskExecutor executor, AggregationTaskStageState currentTaskStageState) {
-                executor.executeRequest(new TweetListRequest(offset, limit), new RequestListener() {
+                executor.executeRequest(new TweetListRequest(offset, limit, mTag), new RequestListener() {
                     @Override
                     public void onRequestFailure(SpiceException e) {
 
@@ -35,7 +39,6 @@ public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<T
 
                     @Override
                     public void onRequestSuccess(Object o) {
-                        Log.d("Response", String.valueOf(((TwitterSearchResults) o).getTweets().size()));
                         setPageItems(((TwitterSearchResults) o).getTweets());
                     }
                 });

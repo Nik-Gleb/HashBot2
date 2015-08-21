@@ -2,49 +2,40 @@ package ru.touchin.hashbot2.api.requests;
 
 import android.util.Log;
 
-import com.google.api.client.http.GenericUrl;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.Request;
-
-import org.apache.http.Header;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.zuzuk.tasks.remote.GetJsonRequest;
 
-import java.io.IOException;
-import java.util.Map;
 import java.util.Random;
 
-import oauth.signpost.OAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
-import oauth.signpost.http.HttpParameters;
-import oauth.signpost.http.HttpRequest;
-import ru.touchin.hashbot2.api.GetOAuthConsumer;
-import ru.touchin.hashbot2.api.models.TwitterResponse;
-import ru.touchin.hashbot2.api.models.TwitterSearchResponse;
 import ru.touchin.hashbot2.api.models.TwitterSearchResults;
 
 public class TweetListRequest extends GetJsonRequest {
 
+    /* Credentials. */
+    private static final String CONSUMER_KEY = "nt05bAdGt63qZ3cYsDACrmb2n";
+    private static final String CONSUMER_SECRET = "rvXaJWNQFmUq1XxEktvwO5MDMV3RkSi6g6JoMY5hvG04L2bpyV";
+    private static final String ACCESS_TOKEN = "3432587974-uiL0SwtTwVwhtzkam7JvN8HAElpfcPIj3lMJRuj";
+    private static final String TOKEN_SECRET = "vonOsieN4CJ1w5Zqq7gzpspnB1doqnzxoHB1obe9LkPNV";
+
     private final Random random = new Random(System.nanoTime());
 
-    public TweetListRequest(int offset, int limit, Class responseResultType) {
+    private final String mTag;
+
+    public TweetListRequest(int offset, int limit, String tag, Class responseResultType) {
         super(responseResultType);
+        mTag = tag;
     }
 
-    public TweetListRequest(int offset, int limit) {
-        this(offset, limit, TwitterSearchResults.class);
+    public TweetListRequest(int offset, int limit, String tag) {
+        this(offset, limit, tag, TwitterSearchResults.class);
     }
 
     @Override
     protected String getUrl() {
-        final String CONSUMER_KEY = "nt05bAdGt63qZ3cYsDACrmb2n";
-        final String CONSUMER_SECRET = "rvXaJWNQFmUq1XxEktvwO5MDMV3RkSi6g6JoMY5hvG04L2bpyV";
-        final String ACCESS_TOKEN = "3432587974-uiL0SwtTwVwhtzkam7JvN8HAElpfcPIj3lMJRuj";
-        final String TOKEN_SECRET = "vonOsieN4CJ1w5Zqq7gzpspnB1doqnzxoHB1obe9LkPNV";
+
 
         DefaultOAuthConsumer consumer = new DefaultOAuthConsumer(CONSUMER_KEY,
                 CONSUMER_SECRET);
@@ -54,7 +45,7 @@ public class TweetListRequest extends GetJsonRequest {
         String res = null;
 
         try {
-            res = consumer.sign("https://api.twitter.com/1.1/search/tweets.json?q=%23android");
+            res = consumer.sign("https://api.twitter.com/1.1/search/tweets.json?q=%23" + mTag);
         } catch (OAuthMessageSignerException e) {
             e.printStackTrace();
         } catch (OAuthExpectationFailedException e) {
@@ -63,8 +54,7 @@ public class TweetListRequest extends GetJsonRequest {
             e.printStackTrace();
         }
 
-        Log.d("HEADER", res);
-
+        Log.d("URL", res);
         return res;
     }
 
