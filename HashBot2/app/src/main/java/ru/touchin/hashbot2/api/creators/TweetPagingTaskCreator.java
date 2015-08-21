@@ -1,5 +1,7 @@
 package ru.touchin.hashbot2.api.creators;
 
+import android.util.Log;
+
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
@@ -31,6 +33,7 @@ public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<T
 
                     @Override
                     public void onRequestSuccess(Object o) {
+                        Log.d("Response", o.toString());
                         setPageItems(null);
                     }
                 });
