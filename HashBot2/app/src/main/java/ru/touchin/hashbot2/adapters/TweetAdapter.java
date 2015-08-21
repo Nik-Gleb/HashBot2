@@ -29,7 +29,7 @@ public class TweetAdapter extends ProviderAdapter<Tweet, RequestPagingProvider<T
     @Override
     protected void bindView(View view, Tweet tweet, int position) {
         if(getItemViewType(position) == ITEM) {
-            ((TextView) view.findViewById(R.id.text)).setText(tweet.toString());
+            ((TextView) view.findViewById(R.id.text)).setText(tweet.getTweet());
         }
     }
 

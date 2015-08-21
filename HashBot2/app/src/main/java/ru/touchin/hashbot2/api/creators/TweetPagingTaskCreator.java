@@ -13,6 +13,8 @@ import ru.touchin.hashbot2.api.RequestFailListener;
 import ru.touchin.hashbot2.api.creators.base.RemoteAggregationPagingTask;
 import ru.touchin.hashbot2.api.creators.base.RemoteAggregationPagingTaskCreator;
 import ru.touchin.hashbot2.api.models.Tweet;
+import ru.touchin.hashbot2.api.models.TwitterSearchResponse;
+import ru.touchin.hashbot2.api.models.TwitterSearchResults;
 import ru.touchin.hashbot2.api.requests.TweetListRequest;
 
 public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<Tweet> {
@@ -33,8 +35,8 @@ public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<T
 
                     @Override
                     public void onRequestSuccess(Object o) {
-                        Log.d("Response", o.toString());
-                        setPageItems(null);
+                        Log.d("Response", String.valueOf(((TwitterSearchResults) o).getTweets().size()));
+                        setPageItems(((TwitterSearchResults) o).getTweets());
                     }
                 });
             }

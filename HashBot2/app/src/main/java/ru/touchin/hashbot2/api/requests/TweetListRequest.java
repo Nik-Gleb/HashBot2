@@ -23,6 +23,9 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.http.HttpParameters;
 import oauth.signpost.http.HttpRequest;
 import ru.touchin.hashbot2.api.GetOAuthConsumer;
+import ru.touchin.hashbot2.api.models.TwitterResponse;
+import ru.touchin.hashbot2.api.models.TwitterSearchResponse;
+import ru.touchin.hashbot2.api.models.TwitterSearchResults;
 
 public class TweetListRequest extends GetJsonRequest {
 
@@ -33,7 +36,7 @@ public class TweetListRequest extends GetJsonRequest {
     }
 
     public TweetListRequest(int offset, int limit) {
-        this(offset, limit, Object.class);
+        this(offset, limit, TwitterSearchResults.class);
     }
 
     @Override
