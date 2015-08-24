@@ -53,11 +53,11 @@ public class TweetListRequest extends GetJsonRequest {
         try {
             res = consumer.sign("https://api.twitter.com/1.1/search/tweets.json?q=%23" + mTag + (mMaxId != null ? "&max_id=" + mMaxId : "") + "&result_type=recent&count=" + String.valueOf(mLimit));
         } catch (OAuthMessageSignerException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } catch (OAuthExpectationFailedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } catch (OAuthCommunicationException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         return res;

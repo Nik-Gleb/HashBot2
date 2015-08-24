@@ -36,6 +36,11 @@ public abstract class BaseLoadedFragment extends BaseExecutorFragment implements
         return view;
     }
 
+    public boolean isHomeButtonVisible() {
+        return true;
+    }
+
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

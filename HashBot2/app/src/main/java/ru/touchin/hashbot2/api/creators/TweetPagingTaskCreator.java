@@ -8,6 +8,10 @@ import com.octo.android.robospice.request.listener.RequestListener;
 import org.zuzuk.tasks.aggregationtask.AggregationPagingTask;
 import org.zuzuk.tasks.aggregationtask.AggregationTaskStageState;
 import org.zuzuk.tasks.aggregationtask.RequestAndTaskExecutor;
+import org.zuzuk.utils.Lc;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 import ru.touchin.hashbot2.adapters.TweetAdapter;
 import ru.touchin.hashbot2.api.RequestFailListener;
@@ -20,9 +24,9 @@ import ru.touchin.hashbot2.api.requests.TweetListRequest;
 
 public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<Tweet> {
 
-    private TweetAdapter mTweetAdapter = null;
-
     private final String mTag;
+
+    private String mMaxID;
 
     public TweetPagingTaskCreator(RequestFailListener requestFailListener, String tag) {
         super(requestFailListener);
@@ -32,20 +36,14 @@ public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<T
     @Override
     public AggregationPagingTask<Tweet> createPagingTask(final int offset, final int limit) {
 
-        final String max_id = mTweetAdapter != null && offset != 0 && mTweetAdapter.getItem(offset - 1) != null ?
-                ((Tweet)mTweetAdapter.getItem(offset - 1)).getId() : null;
-
-        return new InternalAgregationPaggingTask(getRequestFailListener(), offset, limit, max_id, mTag);
+        return new InternalAgregationPaggingTask(getRequestFailListener(), offset, limit, mMaxID, mTag);
     }
 
-    /** @param tweetAdapter adapter for access to max_id by pos. */
-    public final void setAdapter(TweetAdapter tweetAdapter) {
-        mTweetAdapter = tweetAdapter;
-    }
+    public final void setMaxID(String maxID) {mMaxID = maxID;}
 
     private static final class InternalAgregationPaggingTask extends RemoteAggregationPagingTask<Tweet> {
 
-        private final String mMaxId;
+        private String mMaxId;
         private final String mTag;
         private final int mOffset;
         private final int mLimit;
@@ -68,9 +66,6 @@ public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<T
         @Override
         public void load(RequestAndTaskExecutor executor, AggregationTaskStageState currentTaskStageState) {
 
-
-            System.out.println("max_id - " + mMaxId);
-
             executor.executeRequest(new TweetListRequest(mOffset, mLimit, mTag, mMaxId), new RequestListener() {
                 @Override
                 public void onRequestFailure(SpiceException e) {
@@ -79,7 +74,19 @@ public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<T
 
                 @Override
                 public void onRequestSuccess(Object o) {
-                    setPageItems(((TwitterSearchResults) o).getTweets());
+
+                    final ArrayList<Tweet> tweets = ((TwitterSearchResults) o).getTweets();
+
+                    mMaxId = mOffset != 0 && tweets.get(tweets.size() - 1) != null ?
+                            ((Tweet)tweets.get(tweets.size() - 1)).getId() : null;
+
+                    Log.i(" ==== Tweets ==== ",String.format(Locale.getDefault(), "Offset %s, Limit %s, Maxid - %s - %s", mOffset, mLimit, mMaxId, tweets.size()));
+
+                    for (Tweet tweet : tweets){
+                        Log.i("Tweets: ", tweet.getId());
+                    }
+
+                    setPageItems(tweets);
                 }
             });
         }

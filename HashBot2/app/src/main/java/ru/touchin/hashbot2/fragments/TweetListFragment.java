@@ -49,7 +49,7 @@ public class TweetListFragment extends BaseLoadingFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adapter = new TweetAdapter();
-        taskCreator.setAdapter(adapter);
+
         adapter.setProvider(provider);
         this.<ListView>findViewById(R.id.list).setAdapter(adapter);
         this.<ListView>findViewById(R.id.list).setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -59,13 +59,10 @@ public class TweetListFragment extends BaseLoadingFragment {
                 final Tweet tweet = adapter.get(position);
 
                 final Bundle options = new Bundle();
-                options.putString(TweetDetailsFragment.ARG_USER_NAME, tweet.getUser().getName());
-                options.putString(TweetDetailsFragment.ARG_PROFILE_IMAGE_URL, tweet.getUser().getProfileImage());
-                options.putString(TweetDetailsFragment.ARG_TEXT, tweet.getTweet());
-                options.putString(TweetDetailsFragment.ARG_DATE, tweet.getDate());
-                options.putString(TweetDetailsFragment.ARG_SOURCE, tweet.getSource());
+                options.putSerializable(TweetDetailsFragment.ARG_TWEET, tweet);
 
                 getMainActivity().pushFragment(TweetDetailsFragment.class, options);
+
             }
         });
     }
@@ -111,6 +108,11 @@ public class TweetListFragment extends BaseLoadingFragment {
         blogsFrgament.setArguments(arguments);
         return blogsFrgament;
     }
+
+    public boolean isHomeButtonVisible() {
+        return false;
+    }
+
 
 
 }
