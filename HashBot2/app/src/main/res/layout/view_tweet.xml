@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:padding="4dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:layout_width="48dp"
@@ -13,26 +14,39 @@
         android:layout_alignParentStart="true"
         fresco:placeholderImage="@mipmap/ic_launcher"
         fresco:roundedCornerRadius="4dp"
-        android:layout_margin="8dp"/>
+        android:layout_margin="4dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/text_view_user"
-        android:layout_alignTop="@+id/image_view"
-        android:layout_toRightOf="@+id/image_view"
         android:layout_toEndOf="@+id/image_view"
-        android:singleLine="true"/>
+        android:layout_toRightOf="@+id/image_view"
+        android:layout_alignBottom="@+id/image_view"
+        android:layout_alignTop="@+id/image_view"
+        android:layout_marginLeft="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/text_view_tweet"
-        android:layout_below="@+id/text_view_user"
-        android:layout_alignLeft="@+id/text_view_user"
-        android:layout_alignStart="@+id/text_view_user"
-        android:ellipsize="end"
-        android:singleLine="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/text_view_user_name"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:gravity="bottom"
+            android:singleLine="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/text_view_tweet"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:gravity="bottom"/>
+
+
+    </LinearLayout>
+
 </RelativeLayout>

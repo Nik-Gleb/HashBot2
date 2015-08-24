@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#336699">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
 
-</FrameLayout>
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/image_view"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="16dp"
+            fresco:placeholderImage="@mipmap/ic_launcher"
+            fresco:roundedCornerRadius="4dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_alignBottom="@+id/image_view">
+
+            <TextView
+                android:id="@+id/text_view_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#2789ae"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="bottom"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Via Web"
+                android:textColor="#ffffff"
+                android:textSize="10sp"
+                android:layout_weight="1"
+                android:gravity="bottom"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/text_view_tweet"
+            android:layout_below="@+id/image_view"
+            android:layout_alignLeft="@+id/image_view"
+            android:layout_alignStart="@+id/image_view"
+            android:layout_marginTop="24dp"
+            android:textColor="#ffffff"/>
+
+    </RelativeLayout>
+</ScrollView>
