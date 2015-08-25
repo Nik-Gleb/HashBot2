@@ -20,7 +20,7 @@ public class TwitterError implements Serializable {
     private String mErrorMsg;
 
     /** @return {@link #mErrorCode}. */
-    public final int getErrorCode() {return mErrorCode;}
+    public int getErrorCode() {return mErrorCode;}
     /** @return {@link #mErrorMsg}. */
     public String getErrorMsg() {return mErrorMsg;}
 }

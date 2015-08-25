@@ -90,7 +90,7 @@ public class TweetListFragment extends BaseLoadingFragment {
     }
 
     /** @return hash tag for search. */
-    public final CharSequence getHashTag() {
+    public CharSequence getHashTag() {
         return getArguments() != null ? getArguments().getCharSequence(ARG_TAG) : null;
     };
 

@@ -23,21 +23,12 @@ import java.text.SimpleDateFormat;
 import ru.touchin.hashbot2.R;
 import ru.touchin.hashbot2.activities.MainActivity;
 import ru.touchin.hashbot2.api.models.Tweet;
+import ru.touchin.hashbot2.fragments.base.BaseLoadedFragment;
 import ru.touchin.hashbot2.fragments.base.BaseLoadingFragment;
 
-public class TweetDetailsFragment extends BaseLoadingFragment {
+public class TweetDetailsFragment extends BaseLoadedFragment {
 
     public static final String ARG_TWEET = "tweet";
-
-    @Override
-    protected void loadFragmentData(RequestAndTaskExecutor executor, AggregationTaskStageState currentTaskStageState) {
-
-    }
-
-    @Override
-    protected void onFragmentDataLoaded(AggregationTaskStageState currentTaskStageState) {
-
-    }
 
     @Override
     protected View createContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

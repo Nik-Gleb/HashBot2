@@ -18,7 +18,7 @@ public abstract class RemoteAggregationPagingTask<TItem> implements AggregationP
     private final int offset;
     private final int limit;
 
-    protected RemoteAggregationPagingTask(RequestFailListener requestFailListener, int offset, int limit) {
+    protected RemoteAggregationPagingTask(RequestFailListener requestFailListener, int offset, int limit, String mTag) {
         this.requestFailListener = requestFailListener;
         this.offset = offset;
         this.limit = limit;

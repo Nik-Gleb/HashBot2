@@ -23,8 +23,8 @@ public class TwitterResponse<T> extends ObjectFromJson {
     private TwitterError mError = null;
 
     /** @return {@link #mResponse}. */
-    public final T getResponse() {return mResponse; }
+    public T getResponse() {return mResponse; }
     /** @return {@link #mError}. */
-    public final TwitterError getError() {return mError;}
+    public TwitterError getError() {return mError;}
 
 }

@@ -6,7 +6,7 @@ import org.zuzuk.utils.serialization.json.ObjectFromJson;
 
 import java.util.ArrayList;
 
-public class Tweet extends ObjectFromJson {
+public final class Tweet extends ObjectFromJson {
 
     @Key("text")
     private String mText;
@@ -20,14 +20,14 @@ public class Tweet extends ObjectFromJson {
     private String mId;
 
     /** @return text. */
-    public final String getTweet() {return mText;}
+    public String getTweet() {return mText;}
     /** @return date of create. */
-    public final String getDate(){return mDate;}
+    public String getDate(){return mDate;}
     /** @return source url. */
-    public final String getSource(){return mSource;}
+    public String getSource(){return mSource;}
     /** @return user info. */
-    public final User getUser() {return mUser;}
+    public User getUser() {return mUser;}
     /** @return id. */
-    public final String getId() {return mId;}
+    public String getId() {return mId;}
 
 }

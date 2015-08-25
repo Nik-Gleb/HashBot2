@@ -33,7 +33,7 @@ public class TweetAdapter extends ProviderAdapter<Tweet, RequestPagingProvider<T
     protected void bindView(View view, Tweet tweet, int position) {
         if(getItemViewType(position) == ITEM) {
             ((TextView) view.findViewById(R.id.text_view_user_name)).setText(tweet.getUser().getName());
-            ((TextView) view.findViewById(R.id.text_view_tweet)).setText(tweet.getTweet());
+            ((TextView) view.findViewById(R.id.text_view_tweet)).setText(tweet.getDate());
             ((SimpleDraweeView) view.findViewById(R.id.image_view))
                     .setImageURI(Uri.parse(tweet.getUser().getProfileImage()));
         }

@@ -10,5 +10,5 @@ public class TwitterSearchResults extends ObjectFromJson {
     @Key("statuses")
     private ArrayList<Tweet> mTweets;
     /** @return Tweets */
-    public final ArrayList<Tweet> getTweets() {return mTweets;}
+    public ArrayList<Tweet> getTweets() {return mTweets;}
 }

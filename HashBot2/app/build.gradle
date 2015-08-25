@@ -56,5 +56,5 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'commons-io:commons-io:2.4'
-    compile files('libs/signpost-core-1.2.1.2.jar')
+
 }

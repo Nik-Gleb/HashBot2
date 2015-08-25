@@ -12,8 +12,8 @@ public class User extends ObjectFromJson {
     private String mProfileImageUrl;
 
     /** @return the name of user. */
-    public final String getName() {return mName;}
+    public String getName() {return mName;}
     /** @return profile image. */
-    public final String getProfileImage(){return mProfileImageUrl;}
+    public String getProfileImage(){return mProfileImageUrl;}
 
 }
