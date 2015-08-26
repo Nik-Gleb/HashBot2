@@ -15,7 +15,7 @@ import ru.touchin.hashbot2.api.models.TwitterSearchResults;
 
 public class TweetListRequest extends GetJsonRequest {
 
-    private static final String ACCESS_TOKEN = ;
+    
 
     private final Random random = new Random(System.nanoTime());
 

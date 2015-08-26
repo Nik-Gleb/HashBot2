@@ -18,6 +18,7 @@ import ru.touchin.hashbot2.fragments.base.BaseLoadedFragment;
 
 public class TabsFragment extends BaseLoadedFragment {
 
+
     @Override
     protected View createContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_tabs, container, false);
@@ -38,6 +39,12 @@ public class TabsFragment extends BaseLoadedFragment {
 
     public boolean isHomeButtonVisible() {
         return false;
+    }
+
+    @Override
+    public void configureActionBar() {
+        super.configureActionBar();
+        getActivity().setTitle(R.string.app_name);
     }
 
 

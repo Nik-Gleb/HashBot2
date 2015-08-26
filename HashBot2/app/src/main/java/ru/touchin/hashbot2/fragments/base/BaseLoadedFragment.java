@@ -80,4 +80,7 @@ public abstract class BaseLoadedFragment extends BaseExecutorFragment implements
         getMainActivity().onRequestFailure(exceptionList);
     }
 
+    @Override
+    public void configureActionBar() {}
+
 }

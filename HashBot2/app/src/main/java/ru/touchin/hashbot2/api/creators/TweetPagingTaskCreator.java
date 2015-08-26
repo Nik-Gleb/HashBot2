@@ -45,7 +45,7 @@ public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<T
             @Override
             public void load(RequestAndTaskExecutor executor, AggregationTaskStageState currentTaskStageState) {
 
-                executor.executeRequest(new TweetListRequest(offset, limit, mTag, mMaxId), new RequestListener() {
+                executor.executeRequest(new TweetListRequest(offset, limit, mTag, offset!=0 ? mMaxId : null), new RequestListener() {
                     @Override
                     public void onRequestFailure(SpiceException e) {
 

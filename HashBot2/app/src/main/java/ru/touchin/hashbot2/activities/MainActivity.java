@@ -1,10 +1,7 @@
 package ru.touchin.hashbot2.activities;
 
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -30,12 +27,8 @@ public class MainActivity extends BaseExecutorActivity implements RequestFailLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null)
             setFirstFragment(TabsFragment.class);
-        }
 
     }
 
@@ -64,7 +57,7 @@ public class MainActivity extends BaseExecutorActivity implements RequestFailLis
             case android.R.id.home:
                 upButtonClicked();
                 return true;
-            case R.id.action_info:
+            case R.id.action_about:
                 final Tweet tweet = new Tweet();
 
                 final Bundle options = new Bundle();

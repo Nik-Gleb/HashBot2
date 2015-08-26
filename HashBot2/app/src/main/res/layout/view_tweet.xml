@@ -35,7 +35,8 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:gravity="bottom"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:textColor="@android:color/white"/>
 
         <TextView
             android:layout_width="wrap_content"

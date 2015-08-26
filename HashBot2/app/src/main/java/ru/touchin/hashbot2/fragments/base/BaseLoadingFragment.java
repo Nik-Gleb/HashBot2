@@ -8,6 +8,7 @@ import org.zuzuk.tasks.aggregationtask.AggregationTask;
 import org.zuzuk.tasks.aggregationtask.AggregationTaskStage;
 import org.zuzuk.tasks.aggregationtask.AggregationTaskStageState;
 import org.zuzuk.tasks.aggregationtask.RequestAndTaskExecutor;
+import org.zuzuk.utils.Lc;
 
 public abstract class BaseLoadingFragment extends BaseLoadedFragment implements AggregationTask {
 
@@ -30,16 +31,19 @@ public abstract class BaseLoadingFragment extends BaseLoadedFragment implements 
 
     protected void reload() {
         fragmentDataLoaded = false;
+        Lc.d("reload - " + this);
         loadFragment();
     }
 
     private void loadFragment() {
+        Lc.d("loadFragment - " + this);
         executeAggregationTask(BaseLoadingFragment.this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Lc.d("onResume - " + this);
         loadFragment();
     }
 
@@ -93,7 +97,9 @@ public abstract class BaseLoadingFragment extends BaseLoadedFragment implements 
 
     @Override
     public void load(RequestAndTaskExecutor executor, AggregationTaskStageState currentTaskStageState) {
+        Lc.d("load - " + this);
         loadFragmentData(executor, currentTaskStageState);
+
     }
 
     public boolean isFragmentDataLoaded() {

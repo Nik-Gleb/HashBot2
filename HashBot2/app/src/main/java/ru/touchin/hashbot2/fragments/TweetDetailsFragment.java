@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -54,7 +57,11 @@ public class TweetDetailsFragment extends BaseLoadedFragment {
                 .setText(tweet.getDate());
 
         ((TextView)findViewById(R.id.text_view_url))
-                .setText(tweet.getUser().getProfileImage());
+                .setMovementMethod(LinkMovementMethod.getInstance());
+
+        final String url = tweet.getUser().getProfileImage();
+        ((TextView)findViewById(R.id.text_view_url))
+                .setText(Html.fromHtml("<a href=\"" + url + "\">" + url + "</a>"));
 
     }
 
@@ -62,4 +69,9 @@ public class TweetDetailsFragment extends BaseLoadedFragment {
         return true;
     }
 
+    @Override
+    public void configureActionBar() {
+        super.configureActionBar();
+        getActivity().setTitle(R.string.tweets);
+    }
 }

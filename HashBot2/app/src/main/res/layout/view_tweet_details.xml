@@ -37,8 +37,7 @@
                 android:textColor="#2789ae"
                 android:textStyle="bold"
                 android:layout_weight="1"
-                android:gravity="bottom"
-                android:text="wewewewewe" />
+                android:gravity="bottom" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,8 +96,9 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:textSize="10sp"
-                android:maxLength="24"
-                android:ellipsize="end"/>
+                android:maxLength="16"
+                android:ellipsize="end"
+                android:autoLink="web"/>
         </LinearLayout>
 
     </RelativeLayout>

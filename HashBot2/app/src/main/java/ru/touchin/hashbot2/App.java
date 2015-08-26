@@ -12,11 +12,6 @@ import org.zuzuk.tasks.aggregationtask.TaskExecutorHelper;
 import org.zuzuk.tasks.remote.base.TaskExecutorHelperCreator;
 import org.zuzuk.utils.Lc;
 
-/**
- * Class title.
- * Class description.
- * Created by Gleb on 20.08.2015.
- */
 public class App extends Application implements TaskExecutorHelperCreator {
 
     @Override
@@ -30,9 +25,9 @@ public class App extends Application implements TaskExecutorHelperCreator {
             Lc.initialize(Log.ERROR);
         }
 
-        OkHttpClient httpClient = new OkHttpClient();
+        final OkHttpClient httpClient = new OkHttpClient();
         OkHttpHelper.setTimeouts(httpClient);
-        ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(getApplicationContext(), httpClient).build();
+        final ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(getApplicationContext(), httpClient).build();
         Fresco.initialize(getApplicationContext(), config);
     }
 

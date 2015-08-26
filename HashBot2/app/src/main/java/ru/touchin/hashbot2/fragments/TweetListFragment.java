@@ -1,6 +1,7 @@
 package ru.touchin.hashbot2.fragments;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import org.zuzuk.providers.RequestPagingProvider;
 import org.zuzuk.tasks.aggregationtask.AggregationTaskStageState;
 import org.zuzuk.tasks.aggregationtask.RequestAndTaskExecutor;
 import org.zuzuk.ui.fragments.BaseExecutorFragment;
+import org.zuzuk.utils.Lc;
 
 import ru.touchin.hashbot2.R;
 import ru.touchin.hashbot2.adapters.TweetAdapter;
@@ -27,8 +29,21 @@ public class TweetListFragment extends BaseLoadingFragment {
 
     TweetPagingTaskCreator taskCreator = null;
 
+    private static final String LIST_INSTANCE_STATE = "list_instance_state";
+
+    private ListView listView = null;
+    private Parcelable listViewInstanceState = null;
+
     /** The Tweets Fragment ARG TAG. */
     private static final String ARG_TAG = "hash_tag";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null)
+            listViewInstanceState = savedInstanceState.getParcelable(LIST_INSTANCE_STATE);
+
+    }
 
     @Override
     protected void onCreateRenewable() {
@@ -51,7 +66,10 @@ public class TweetListFragment extends BaseLoadingFragment {
         adapter = new TweetAdapter();
 
         adapter.setProvider(provider);
-        this.<ListView>findViewById(R.id.list).setAdapter(adapter);
+
+        listView = this.<ListView>findViewById(R.id.list);
+
+        listView.setAdapter(adapter);
         this.<ListView>findViewById(R.id.list).setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -65,6 +83,8 @@ public class TweetListFragment extends BaseLoadingFragment {
 
             }
         });
+
+
     }
 
     @Override
@@ -82,11 +102,13 @@ public class TweetListFragment extends BaseLoadingFragment {
     @Override
     protected void loadFragmentData(RequestAndTaskExecutor executor, AggregationTaskStageState currentTaskStageState) {
         provider.initialize(0, executor);
+        Lc.d("loadFragmentData - " + getHashTag() + " - " +  currentTaskStageState.isTaskWrapped());
     }
 
     @Override
     protected void onFragmentDataLoaded(AggregationTaskStageState currentTaskStageState) {
-
+        if (listViewInstanceState!=null)
+            listView.onRestoreInstanceState(listViewInstanceState);
     }
 
     /** @return hash tag for search. */
@@ -113,6 +135,12 @@ public class TweetListFragment extends BaseLoadingFragment {
         return false;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
+        if (listView != null)
+            outState.putParcelable(LIST_INSTANCE_STATE, listView.onSaveInstanceState());
+    }
 
 
 }

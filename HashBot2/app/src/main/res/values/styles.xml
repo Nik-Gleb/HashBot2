@@ -1,10 +1,35 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@color/app_bg</item>
-        <item name="android:textColor">#FFFFFF</item>
+    <!-- ActionBar Style -->
+    <style name="Widget.HashBot.ActionBarStyle"
+           parent="android:Widget.Holo.ActionBar">
+
+        <item tools:ignore="NewApi" name="android:displayOptions">showHome|showTitle</item>
+        <item name="displayOptions">showHome|showTitle</item>
+
+        <item tools:ignore="NewApi" name="android:background">@drawable/ab_transparent_dark_holo</item>
+        <item name="background">@drawable/ab_transparent_dark_holo</item>
+
     </style>
+
+    <!-- Tabs style. -->
+    <style name="Widget.HashBot.TabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabIndicatorColor">#34B5E5</item>
+        <item name="tabTextAppearance">@style/TextAppearance.HashBot.Tab</item>
+        <item name="tabMaxWidth">0dp</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+        <item name="android:background">@drawable/ab_transparent_dark_holo</item>
+
+    </style>
+
+    <!-- Text Appearances. -->
+    <style name="TextAppearance.HashBot.Tab" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
 
 </resources>

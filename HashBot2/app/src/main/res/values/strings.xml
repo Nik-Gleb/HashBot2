@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">HashBot2</string>
+    <string name="app_name">#Bot</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_info">Settings</string>
+    <string name="tweets">Tweets</string>
+    <string name="info">Info</string>
+    <string name="action_about">About</string>
 </resources>
