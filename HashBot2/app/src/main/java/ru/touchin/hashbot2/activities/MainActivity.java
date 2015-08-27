@@ -14,6 +14,7 @@ import java.util.List;
 import ru.touchin.hashbot2.R;
 import ru.touchin.hashbot2.api.RequestFailListener;
 import ru.touchin.hashbot2.api.models.Tweet;
+import ru.touchin.hashbot2.fragments.InfoFragment;
 import ru.touchin.hashbot2.fragments.TabsFragment;
 import ru.touchin.hashbot2.fragments.TweetDetailsFragment;
 import ru.touchin.hashbot2.fragments.base.BaseLoadedFragment;
@@ -58,12 +59,7 @@ public class MainActivity extends BaseExecutorActivity implements RequestFailLis
                 upButtonClicked();
                 return true;
             case R.id.action_about:
-                final Tweet tweet = new Tweet();
-
-                final Bundle options = new Bundle();
-                options.putSerializable(TweetDetailsFragment.ARG_TWEET, tweet);
-
-                pushFragment(TweetDetailsFragment.class, options);
+                pushFragment(InfoFragment.class);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

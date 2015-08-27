@@ -15,9 +15,7 @@ import ru.touchin.hashbot2.api.models.TwitterSearchResults;
 
 public class TweetListRequest extends GetJsonRequest {
 
-    
-
-    private final Random random = new Random(System.nanoTime());
+    private static final String ACCESS_TOKEN = "AAAAAAAAAAAAAAAAAAAAAA8LfQAAAAAAswhnMRduRw%2FmKv%2FQBP3RENXra4o%3DkpJezQ9NL6yd63Yt1jPlJwZAawqoexoTzDMld7Pbc0i6LPWC5P";
 
     private final String mTag;
     private final int mLimit;
@@ -37,7 +35,7 @@ public class TweetListRequest extends GetJsonRequest {
 
     @Override
     protected String getUrl() {
-        return "https://api.twitter.com/1.1/search/tweets.json";//?q=%23" + mTag + (mMaxId != null ? "&max_id=" + mMaxId : "");
+        return "https://api.twitter.com/1.1/search/tweets.json";
     }
 
     @Override

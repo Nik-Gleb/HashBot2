@@ -3,36 +3,33 @@ package ru.touchin.hashbot2.fragments;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.zuzuk.providers.RequestPagingProvider;
 import org.zuzuk.tasks.aggregationtask.AggregationTaskStageState;
 import org.zuzuk.tasks.aggregationtask.RequestAndTaskExecutor;
-import org.zuzuk.ui.fragments.BaseExecutorFragment;
 import org.zuzuk.utils.Lc;
 
 import ru.touchin.hashbot2.R;
 import ru.touchin.hashbot2.adapters.TweetAdapter;
 import ru.touchin.hashbot2.api.creators.TweetPagingTaskCreator;
 import ru.touchin.hashbot2.api.models.Tweet;
-import ru.touchin.hashbot2.fragments.base.BaseLoadingFragment;
+import ru.touchin.hashbot2.fragments.base.BaseListViewFragment;
 
-public class TweetListFragment extends BaseLoadingFragment {
+public class TweetListFragment extends BaseListViewFragment {
 
     private RequestPagingProvider<Tweet> provider;
-    private TweetAdapter adapter = null;
-
-    TweetPagingTaskCreator taskCreator = null;
+    private TweetAdapter adapter;
 
     private static final String LIST_INSTANCE_STATE = "list_instance_state";
 
-    private ListView listView = null;
-    private Parcelable listViewInstanceState = null;
+    private ListView listView;
+    private Parcelable listViewInstanceState;
 
     /** The Tweets Fragment ARG TAG. */
     private static final String ARG_TAG = "hash_tag";
@@ -48,10 +45,7 @@ public class TweetListFragment extends BaseLoadingFragment {
     @Override
     protected void onCreateRenewable() {
         super.onCreateRenewable();
-
-        taskCreator = new TweetPagingTaskCreator(this, getHashTag().toString());
-
-        provider = new RequestPagingProvider<>(this, taskCreator);
+        provider = new RequestPagingProvider<Tweet>(this, new TweetPagingTaskCreator(this, getHashTag().toString()));
     }
 
     @Override
@@ -67,24 +61,22 @@ public class TweetListFragment extends BaseLoadingFragment {
 
         adapter.setProvider(provider);
 
-        listView = this.<ListView>findViewById(R.id.list);
+        listView = this.<ListView>findViewById(R.id.fragmentList);
 
         listView.setAdapter(adapter);
-        this.<ListView>findViewById(R.id.list).setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                final Tweet tweet = adapter.get(position);
-
-                final Bundle options = new Bundle();
-                options.putSerializable(TweetDetailsFragment.ARG_TWEET, tweet);
-
-                getMainActivity().pushFragment(TweetDetailsFragment.class, options);
-
-            }
-        });
 
 
+    }
+
+    @Override
+    protected void onItemClick(int position) {
+        super.onItemClick(position);
+        final Tweet tweet = adapter.get(position);
+
+        final Bundle options = new Bundle();
+        options.putSerializable(TweetDetailsFragment.ARG_TWEET, tweet);
+
+        getMainActivity().pushFragment(TweetDetailsFragment.class, options);
     }
 
     @Override
@@ -101,7 +93,7 @@ public class TweetListFragment extends BaseLoadingFragment {
 
     @Override
     protected void loadFragmentData(RequestAndTaskExecutor executor, AggregationTaskStageState currentTaskStageState) {
-        provider.initialize(0, executor);
+        provider.initialize(getListPosition(), executor);
         Lc.d("loadFragmentData - " + getHashTag() + " - " +  currentTaskStageState.isTaskWrapped());
     }
 
@@ -113,7 +105,7 @@ public class TweetListFragment extends BaseLoadingFragment {
 
     /** @return hash tag for search. */
     public CharSequence getHashTag() {
-        return getArguments() != null ? getArguments().getCharSequence(ARG_TAG) : null;
+        return getArguments() == null ? null : getArguments().getCharSequence(ARG_TAG);
     };
 
     /**
@@ -122,8 +114,9 @@ public class TweetListFragment extends BaseLoadingFragment {
      * @return fragment instance
      */
     public static TweetListFragment newInstance(CharSequence tag) {
-        if (tag == null || TextUtils.isEmpty(tag.toString()))
+        if (StringUtils.isBlank(tag))
             throw new IllegalArgumentException();
+
         final TweetListFragment blogsFrgament = new TweetListFragment();
         final Bundle arguments = new Bundle();
         arguments.putString(ARG_TAG, tag.toString());

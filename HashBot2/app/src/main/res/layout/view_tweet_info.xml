@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="36dp"
+        android:paddingBottom="36dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="30dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Нам не стыдно за выпускаемые продукты, все они сделаны с вниманием к деталям. Пользователи это ценят, многие наши приложения попадают в топы AppStore и получают высокие оценки.\n\nМы любим своих заказчиков и решаем их задачи. На письма и телефон отвечаем быстро, по праздникам и выходным, делаем работу в срок и никуда не пропадаем.\nЗакажите разработку сейчас!"
+            android:layout_alignParentTop="true"
+            android:textColor="@android:color/white"
+            android:drawableTop="@drawable/logo"
+            android:drawablePadding="23dp"
+            android:id="@+id/text_view"
+            android:layout_marginBottom="18dp"
+            android:textSize="14sp"/>
+
+        <ImageButton
+            android:layout_width="84dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/call_image_button"
+            android:layout_below="@+id/text_view"
+            android:layout_alignLeft="@+id/text_view"
+            android:layout_alignStart="@+id/text_view"
+            android:src="@drawable/icon_phone"
+            android:background="@drawable/button_bg"/>
+
+        <ImageButton
+            android:layout_width="84dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/write_image_button"
+            android:layout_below="@+id/text_view"
+            android:layout_alignRight="@+id/text_view"
+            android:layout_alignEnd="@+id/text_view"
+            android:src="@drawable/icon_mail"
+            android:background="@drawable/button_bg"/>
+        </RelativeLayout>
+</ScrollView>

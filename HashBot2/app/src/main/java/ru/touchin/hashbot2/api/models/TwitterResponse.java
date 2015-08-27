@@ -17,10 +17,10 @@ public class TwitterResponse<T> extends ObjectFromJson {
 
     /** Received content. */
     @Key
-    private T mResponse = null;
+    private T mResponse;
     /** Typical error response. */
     @Key
-    private TwitterError mError = null;
+    private TwitterError mError;
 
     /** @return {@link #mResponse}. */
     public T getResponse() {return mResponse; }
