@@ -29,7 +29,7 @@ public class TweetListRequest extends GetJsonRequest {
 
     }
 
-    public TweetListRequest(int offset, int limit, String tag, String max_id) {
+    public TweetListRequest(int limit, String tag, String max_id) {
         this(limit, tag, max_id, TwitterSearchResults.class);
     }
 
