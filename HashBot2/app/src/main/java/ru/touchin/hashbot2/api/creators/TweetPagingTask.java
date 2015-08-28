@@ -21,15 +21,13 @@ public class TweetPagingTask extends RemoteAggregationPagingTask<Tweet> {
 
     private final String tag;
     private final int limit;
-    private final int offset;
     private final TweetPagingTaskCreator taskCreator;
 
 
-    protected TweetPagingTask(RequestFailListener requestFailListener, int offset, int limit, String tag, TweetPagingTaskCreator taskCreator) {
+    protected TweetPagingTask(RequestFailListener requestFailListener, int limit, String tag, TweetPagingTaskCreator taskCreator) {
         super(requestFailListener, offset, limit, tag);
         this.tag = tag;
         this.limit = limit;
-        this.offset = offset;
         this.taskCreator = taskCreator;
     }
 
@@ -42,7 +40,7 @@ public class TweetPagingTask extends RemoteAggregationPagingTask<Tweet> {
      */
     @Override
     public void load(RequestAndTaskExecutor executor, AggregationTaskStageState currentTaskStageState) {
-        executor.executeRequest(new TweetListRequest(offset, limit, tag, offset!=0 ? taskCreator.getMaxId() : null), new RequestListener() {
+        executor.executeRequest(new TweetListRequest(offset, limit, tag, taskCreator.getMaxId()), new RequestListener() {
             @Override
             public void onRequestFailure(SpiceException e) {
                 Toast.makeText(App.getInstance().getApplicationContext(), "Can't load new tweets", Toast.LENGTH_SHORT).show();
