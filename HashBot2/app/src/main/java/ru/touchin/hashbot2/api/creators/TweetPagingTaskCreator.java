@@ -20,50 +20,19 @@ import ru.touchin.hashbot2.api.requests.TweetListRequest;
 public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<Tweet> {
 
     private final String mTag;
-    private String mMaxId;
+    private String maxId;
 
     public TweetPagingTaskCreator(RequestFailListener requestFailListener, String tag) {
         super(requestFailListener);
         mTag = tag;
-
     }
+
+    final void setMaxId(String maxId) {this.maxId = maxId;}
+    final String getMaxId() {return this.maxId;}
 
     @Override
     public AggregationPagingTask<Tweet> createPagingTask(final int offset, final int limit) {
-
-        return new RemoteAggregationPagingTask<Tweet>(getRequestFailListener(), offset, limit, mTag) {
-
-            /**
-             * Loading data at current stage
-             * It is executing in main UI thread.
-             *
-             * @param executor
-             * @param currentTaskStageState
-             */
-            @Override
-            public void load(RequestAndTaskExecutor executor, AggregationTaskStageState currentTaskStageState) {
-
-                executor.executeRequest(new TweetListRequest(offset, limit, mTag, offset!=0 ? mMaxId : null), new RequestListener() {
-                    @Override
-                    public void onRequestFailure(SpiceException e) {
-
-                    }
-
-                    @Override
-                    public void onRequestSuccess(Object o) {
-
-                        final ArrayList<Tweet> tweets = ((TwitterSearchResults) o).getTweets();
-
-                        if (tweets != null && tweets.size() != 0) {
-                            mMaxId = ((Tweet)tweets.get(tweets.size() - 1)).getId();
-                        }
-
-                        setPageItems(tweets);
-
-                    }
-                });
-            }
-        };
+        return new TweetPagingTask(getRequestFailListener(), offset, limit, mTag, this);
     }
 
 

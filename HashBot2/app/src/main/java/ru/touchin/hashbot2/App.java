@@ -14,9 +14,13 @@ import org.zuzuk.utils.Lc;
 
 public class App extends Application implements TaskExecutorHelperCreator {
 
+    private static App instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        instance = this;
 
         if (BuildConfig.DEBUG) {
             Lc.initialize(Log.DEBUG);
@@ -34,5 +38,9 @@ public class App extends Application implements TaskExecutorHelperCreator {
     @Override
     public TaskExecutorHelper createTaskExecutorHelper() {
         return new TaskExecutorHelper() {};
+    }
+
+    public static App getInstance() {
+        return instance;
     }
 }

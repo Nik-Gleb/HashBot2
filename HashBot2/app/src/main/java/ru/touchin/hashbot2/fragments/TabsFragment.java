@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import org.zuzuk.ui.fragments.BaseExecutorFragment;
 
 import ru.touchin.hashbot2.R;
+import ru.touchin.hashbot2.adapters.PagersAdapter;
 import ru.touchin.hashbot2.fragments.base.BaseLoadedFragment;
 
 public class TabsFragment extends BaseLoadedFragment {
@@ -30,7 +31,7 @@ public class TabsFragment extends BaseLoadedFragment {
         //getChildFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer2, new TweetListFragment()).commit();
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-        viewPager.setAdapter(new FragmentsAdapter(getChildFragmentManager()));
+        viewPager.setAdapter(new PagersAdapter(getChildFragmentManager()));
 
         ((TabLayout) findViewById(R.id.tabs))
                 .setupWithViewPager(viewPager);
@@ -47,43 +48,6 @@ public class TabsFragment extends BaseLoadedFragment {
     }
 
 
-    /** Fragments Adapter for managing view pager. */
-    private static final class FragmentsAdapter extends FragmentStatePagerAdapter {
-
-        /** All Pages (in this implementation hardcoded). */
-        private final TweetListFragment[] mItems = new TweetListFragment[] {
-                TweetListFragment.newInstance("Android"),
-                TweetListFragment.newInstance("Twitter"),
-                TweetListFragment.newInstance("Dribble")
-        };
-
-        /**
-         * Constructs new fragments pager with support fragment manager.
-         * @param fragmentManager support fragment manager
-         */
-        FragmentsAdapter(FragmentManager fragmentManager){
-            super(fragmentManager);
-        }
-
-        /**
-         * Return the Fragment associated with a specified position.
-         *
-         * @param position position of fragment.
-         */
-        @Override
-        public Fragment getItem(int position) {return mItems[position];}
-
-        /** Return the number of views available. */
-        @Override
-        public int getCount() {return mItems.length;}
-
-        /**
-         * @param position position
-         * @return page title by position
-         */
-        @Override
-        public CharSequence getPageTitle(int position) {return "#" + mItems[position].getHashTag();}
-    }
 
 
 }

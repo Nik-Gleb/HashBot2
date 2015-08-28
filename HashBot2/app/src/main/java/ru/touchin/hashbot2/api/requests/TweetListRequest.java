@@ -21,7 +21,7 @@ public class TweetListRequest extends GetJsonRequest {
     private final int mLimit;
     private final String mMaxId;
 
-    public TweetListRequest(int offset, int limit, String tag, String max_id, Class responseResultType) {
+    public TweetListRequest(int limit, String tag, String max_id, Class responseResultType) {
         super(responseResultType);
         mTag = tag;
         mLimit = limit;
@@ -30,7 +30,7 @@ public class TweetListRequest extends GetJsonRequest {
     }
 
     public TweetListRequest(int offset, int limit, String tag, String max_id) {
-        this(offset, limit, tag, max_id, TwitterSearchResults.class);
+        this(limit, tag, max_id, TwitterSearchResults.class);
     }
 
     @Override

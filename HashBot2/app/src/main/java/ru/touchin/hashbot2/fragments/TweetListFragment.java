@@ -26,8 +26,6 @@ public class TweetListFragment extends BaseListViewFragment {
     private RequestPagingProvider<Tweet> provider;
     private TweetAdapter adapter;
 
-    private static final String LIST_INSTANCE_STATE = "list_instance_state";
-
     private ListView listView;
     private Parcelable listViewInstanceState;
 
@@ -37,15 +35,6 @@ public class TweetListFragment extends BaseListViewFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null)
-            listViewInstanceState = savedInstanceState.getParcelable(LIST_INSTANCE_STATE);
-
-    }
-
-    @Override
-    protected void onCreateRenewable() {
-        super.onCreateRenewable();
-        provider = new RequestPagingProvider<Tweet>(this, new TweetPagingTaskCreator(this, getHashTag().toString()));
     }
 
     @Override
@@ -58,13 +47,9 @@ public class TweetListFragment extends BaseListViewFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adapter = new TweetAdapter();
-
         adapter.setProvider(provider);
-
         listView = this.<ListView>findViewById(R.id.fragmentList);
-
         listView.setAdapter(adapter);
-
     }
 
     @Override
@@ -92,19 +77,21 @@ public class TweetListFragment extends BaseListViewFragment {
 
     @Override
     protected void loadFragmentData(RequestAndTaskExecutor executor, AggregationTaskStageState currentTaskStageState) {
+        if (provider == null)
+            provider = new RequestPagingProvider<Tweet>(this, new TweetPagingTaskCreator(this, getHashTag()));
         provider.initialize(getListPosition(), executor);
-        Lc.d("loadFragmentData - " + getHashTag() + " - " +  currentTaskStageState.isTaskWrapped());
     }
 
     @Override
     protected void onFragmentDataLoaded(AggregationTaskStageState currentTaskStageState) {
-        //if (listViewInstanceState!=null)
-        //    listView.onRestoreInstanceState(listViewInstanceState);
+        super.onFragmentDataLoaded(currentTaskStageState);
+        if (provider == null || !provider.equals(adapter.getProvider()))
+            adapter.setProvider(provider);
     }
 
     /** @return hash tag for search. */
-    public CharSequence getHashTag() {
-        return getArguments() == null ? null : getArguments().getCharSequence(ARG_TAG);
+    public String getHashTag() {
+        return getArguments() == null ? null : getArguments().getString(ARG_TAG);
     };
 
     /**
@@ -112,13 +99,10 @@ public class TweetListFragment extends BaseListViewFragment {
      * @param tag tag for search
      * @return fragment instance
      */
-    public static TweetListFragment newInstance(CharSequence tag) {
-        if (StringUtils.isBlank(tag))
-            throw new IllegalArgumentException();
-
+    public static TweetListFragment newInstance(String tag) {
         final TweetListFragment blogsFrgament = new TweetListFragment();
         final Bundle arguments = new Bundle();
-        arguments.putString(ARG_TAG, tag.toString());
+        arguments.putString(ARG_TAG, tag);
         blogsFrgament.setArguments(arguments);
         return blogsFrgament;
     }
@@ -126,13 +110,5 @@ public class TweetListFragment extends BaseListViewFragment {
     public boolean isHomeButtonVisible() {
         return false;
     }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        //super.onSaveInstanceState(outState);
-        if (listView != null)
-            outState.putParcelable(LIST_INSTANCE_STATE, listView.onSaveInstanceState());
-    }
-
 
 }

@@ -33,9 +33,8 @@ public final class Tweet extends ObjectFromJson {
         try {
             return OUT_DATE_FORMAT.format(IN_DATE_FORMAT.parse(mDate));
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return "";
     }
     /** @return source url. */
     public String getSource(){return mSource;}
