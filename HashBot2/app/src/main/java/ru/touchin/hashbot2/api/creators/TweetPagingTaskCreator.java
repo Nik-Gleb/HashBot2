@@ -28,7 +28,7 @@ public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<T
     }
 
     final void setMaxId(String maxId) {this.maxId = maxId;}
-    final String getMaxId() {return this.maxId;}
+    final String getMaxId() {return offset!=0 ? this.maxId : null;}
 
     @Override
     public AggregationPagingTask<Tweet> createPagingTask(final int offset, final int limit) {
