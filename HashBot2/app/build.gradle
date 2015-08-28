@@ -51,7 +51,6 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.2.0+'
     compile 'com.facebook.fresco:imagepipeline-okhttp:0.2.0+'
     compile 'org.apache.commons:commons-lang3:3.3.2'
-    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'de.ruedigermoeller:fst:2.24'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.4'
     compile 'org.apache.commons:commons-lang3:3.3.2'

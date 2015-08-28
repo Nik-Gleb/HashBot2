@@ -99,8 +99,8 @@ public class TweetListFragment extends BaseListViewFragment {
 
     @Override
     protected void onFragmentDataLoaded(AggregationTaskStageState currentTaskStageState) {
-        if (listViewInstanceState!=null)
-            listView.onRestoreInstanceState(listViewInstanceState);
+        //if (listViewInstanceState!=null)
+        //    listView.onRestoreInstanceState(listViewInstanceState);
     }
 
     /** @return hash tag for search. */

@@ -28,8 +28,6 @@ public class TweetPagingTaskCreator extends RemoteAggregationPagingTaskCreator<T
 
     }
 
-
-
     @Override
     public AggregationPagingTask<Tweet> createPagingTask(final int offset, final int limit) {
 
