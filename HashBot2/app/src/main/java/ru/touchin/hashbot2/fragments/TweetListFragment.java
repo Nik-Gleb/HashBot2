@@ -65,7 +65,6 @@ public class TweetListFragment extends BaseListViewFragment {
 
         listView.setAdapter(adapter);
 
-
     }
 
     @Override
